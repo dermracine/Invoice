@@ -109,29 +109,28 @@ $con=mysqli_connect($ser, $user, $pass, $db) or die("Connection Failed");
 
 	if(isset($_POST['submit'])){
    
-	//Fetching variables from the form
-    
-	$company = $con->real_escape_string($_POST['company']); // added the real escape string in case of an apostrophe or other character that needs to be escaped
-    $contact = $con->real_escape_string($_POST['contact']);
-    $address = $con->real_escape_string($_POST['address']);
-    $city = $con->real_escape_string($_POST['city']);
-	$state = $con->real_escape_string($_POST['state']);
-	$zip = ($_POST['zip']);
-	$phone = $_POST['phone'];
-	$vendor = $_POST['vendor'];
-	$dispBox = $_POST['dispBox'];
-	$price = $_POST['price'];
-    $retail = $_POST['retail'];		
+
+			//Fetching variables from the form
+			$company = $con->real_escape_string($_POST['company']); // added the real escape string in case of an apostrophe or other character that needs to be escaped
+			$contact = $con->real_escape_string($_POST['contact']);
+			$address = $con->real_escape_string($_POST['address']);
+			$city = $con->real_escape_string($_POST['city']);
+			$state = $con->real_escape_string($_POST['state']);
+			$zip = ($_POST['zip']);
+			$phone = $_POST['phone'];
+			$vendor = $_POST['vendor'];
+			$dispBox = $_POST['dispBox'];
+			$price = $_POST['price'];
+			$retail = $_POST['retail'];		
 					
-    if($company !=''){ //Only checks to ensure a Company is entered - all other field's don't care... Not sure which fields I want to mandate at this point....
-	//Insert values into customers table.
-    $query = mysqli_query($con, "insert into `customers`(`company`, `contact`, `address`, `city`, `state`, `zip`, `phone`, `vendor`, `dispBox`, `price`, `retail`) values ('$company', '$contact', '$address', '$city', '$state', '$zip', '$phone', '$vendor', '$dispBox', '$price', '$retail')");
-	echo "<br/><br/><span>Data Inserted successfully...!!</span>";
-    }
-    else{
-    echo "<p>Insertion Failed <br/> Some Fields are Blank....!!</p>";   
-    }
- 
+		if($company !=''){ //Only checks to ensure a Company is entered - all other field's don't care... Not sure which fields I want to mandate at this point....
+			//Insert values into customers table.
+			$query = mysqli_query($con, "insert into `customers`(`company`, `contact`, `address`, `city`, `state`, `zip`, `phone`, `vendor`, `dispBox`, `price`, `retail`) values ('$company', '$contact', '$address', '$city', '$state', '$zip', '$phone', '$vendor', '$dispBox', '$price', '$retail')");
+			echo "<br/><br/><span>Data Inserted successfully...!!</span>";
+		}
+			else{
+				echo "<p>Data NOT saved - Company name required!!</p>";   
+		}
 	}
 	//Closing Connection with Server
 	mysqli_close($con);

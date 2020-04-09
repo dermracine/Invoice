@@ -8,6 +8,20 @@ $connect = mysqli_connect("localhost", "root", "", "invoice"); //Connect to mysq
  $outblnk = '';
  $outtail = '';
  $rows = 20; //Number of rows for my invoice sheet for products
+
+function fill_description_menu($connect)  
+ {  
+      $output = '';  
+	  $sql = "SELECT * FROM products order by product asc";//Query the products table.
+      $result = mysqli_query($connect, $sql);  
+      while($row = mysqli_fetch_array($result))  //Loop to populate pulldown menu
+      {  
+		   $output .= '<option value="'.$row["id"].'">'.$row["product"].'</option>';  
+      }  
+      return $output;  
+ }  
+ 
+
  
  if(isset($_POST["id"]))  
  {  
@@ -51,7 +65,7 @@ $connect = mysqli_connect("localhost", "root", "", "invoice"); //Connect to mysq
 		 if($i==0){ //Setup div tags for header columns for invoice format - Qty, Unit Cost, Description, SSP, Total
 			$outdscr .= ' 
 			<div class:container;>
-				<div style="border:0px solid #ff0102; class:row; width: 1300px; margin-bottom: -5px;">
+				<div style="border:0px solid #ff0102; class:row; width: 1300px; margin-bottom: 0px;">
 					<div style="border:1px solid #000; padding:0px; margin-bottom:5px; width: 50px; class:col; height: 25px; background-color:lightblue; display:inline-block;" align="center">Qty
 					</div><div style="border:1px solid #000; padding:0px; margin-bottom:5px; width: 85px; class:col; height: 25px; background-color:lightblue; display:inline-block;" align="center">Unit Cost
 					</div><div style="border:1px solid #000; padding:0px; margin-bottom:5px; width: 800px; class:col; height: 25px; background-color:lightblue; display:inline-block;" align="center">Description
@@ -65,14 +79,20 @@ $connect = mysqli_connect("localhost", "root", "", "invoice"); //Connect to mysq
 	
 		//Setup div tags for columns for invoice format - Quantity, Unit Cost, Description of product, Suggested Sale Price, and Total
 		$outblnk .= '
-			<div style="class:row; width: 1300px; margin-bottom: -4px;">
-				<div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 50px; height: 20px; class:col; background-color:lightblue; display:inline-block;" align="center">
-				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 85px; height: 20px; class:col; background-color:lightblue; display:inline-block;" align="center">
-				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 800px; height: 20px; class:col; background-color:lightblue; display:inline-block;" align="center">
-				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 50px; height: 20px; class:col; background-color:lightblue; display:inline-block;" align="center">
-				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 60px; height: 20px; class:col; background-color:lightblue; display:inline-block;" align="center">
+			<div style="class:row; width: 1300px; margin-bottom: 1px;">
+				<div style="border:1px solid #000; padding:1px; margin-bottom:1px; width: 50px; height: 25px; class:col; background-color:lightblue; display:inline-block;" align="center" >
+					<input type="number" class="form-control prc"/>
+				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 85px; height: 25px; class:col; background-color:lightblue; display:inline-block;" align="center">
+					<input type="number" class="form-control prc"/>
+				</div><div style="border:1px solid #000; padding:0px; margin-bottom:4px; width: 800px; height: 25px; class:col; background-color:lightblue; display:inline-block;" align="center" id="fill">
+					<select name="fill_description" id="fill_description" background-color="lightblue" style="width: 780px" margin-bottom="2px"><option value="">'.fill_description_menu($connect).'</option></select>
+				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 50px; height: 25px; class:col; background-color:lightblue; display:inline-block;" align="center" id="fill">
+					<input type="text" />
+				</div><div style="border:1px solid #000; padding:0px; margin-bottom:0px; width: 60px; height: 25px; class:col; background-color:lightblue; display:inline-block;" align="center">
+					<output id="result"></output>
 				</div>
 			</div>';
+
 			$i++;
 	}
 	echo $outblnk; //echo above formatting to screen
@@ -112,3 +132,8 @@ $connect = mysqli_connect("localhost", "root", "", "invoice"); //Connect to mysq
  
 
  ?>  
+ 
+ 
+ 
+
+
