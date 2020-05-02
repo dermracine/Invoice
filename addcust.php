@@ -108,9 +108,7 @@ $db="invoice";
 $con=mysqli_connect($ser, $user, $pass, $db) or die("Connection Failed");
 
 	if(isset($_POST['submit'])){
-   
-
-			//Fetching variables from the form
+ 			//Fetching variables from the form
 			$company = $con->real_escape_string($_POST['company']); // added the real escape string in case of an apostrophe or other character that needs to be escaped
 			$contact = $con->real_escape_string($_POST['contact']);
 			$address = $con->real_escape_string($_POST['address']);

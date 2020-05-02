@@ -4,7 +4,7 @@
  function fill_cust_list($connect)  
  {  
       $output = '';  
-	  $sql = "SELECT * FROM customers order by company asc";//Query the customers table.
+	  $sql = "SELECT * FROM customer order by company asc";//Query the customers table.
       $result = mysqli_query($connect, $sql);  
       while($row = mysqli_fetch_array($result))  //Loop to populate pulldown menu
       {  
@@ -45,12 +45,8 @@
 					</div> 
 
                      <div class="row" id="fill_inv">  
-					 This fills in to but does not stay
                          <?php echo fill_invoice_page($connect);?> 
-						 This is just after script and does not show
-                     </div>
-					 
-					 This does stay so just php script above does not work
+                     </div>					 
                  </h3>
            </div>
 
@@ -72,18 +68,8 @@
       });  
  });  
  </script> 
-<script>
-$('.form-group').on('input','.prc',function(){
-		var totalSum = 0;
-		$('.form-group .prc').each(function(){
-			var inputVal = $(this).val();
-			if($.isNumeric(inputVal)){
-				totalSum += parseFloat(inputVal);
-			}
-		});
-		$('#result').text(totalSum);
-	});
-</script> 
+
+
 <script>
   //AJAX jQuery for function to fill pulldown menu with the company name
  $(document).ready(function(){  
